@@ -1,0 +1,23 @@
+db:
+  image: mysql:latest
+  environment:
+    MYSQL_ROOT_PASSWORD: '12345'
+
+web:
+  build: .
+  command: bash -c "rm -f /app/tmp/pids/server.pid Gemfile.lock && bundle exec rails s -p 3000 -b 0.0.0.0"
+  environment:
+    GMAIL_USERNAME: example@gmail.com
+    GMAIL_PASSWORD: 'p4ssw0rd'
+    MAILCHIMP_API_KEY: asdasdasda
+    MAILCHIMP_LIST_ID: asdasdaadasdada
+    OWNER_EMAIL: example_owner@gmail.com
+    SECRET_KEY_BASE: asdasdasdadasdadasdasda213131aasdasd
+  volumes:
+    - .:/app
+    - ~/.pry_history:/home/user/.pry_history
+    - ~/.mysql_history:/home/user/.mysql_history
+  ports:
+    - "3000:3000"
+  links:
+    - db
